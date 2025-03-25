@@ -4,7 +4,7 @@
       Chapter case
 
       Order Form Code
-      Author: 
+      Author: maddy
       Date:   
 
       Filename: js06a.js
