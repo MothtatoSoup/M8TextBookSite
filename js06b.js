@@ -10,7 +10,15 @@
       Filename: js06b.js
  */
 
-
+// check if the owner's name is entered on the card
+function validateName(){
+   let cardName = document.getElementById("cardName");
+   if(cardName.validity.valueMissing){
+      cardName.setCustomValidity("Enter your name as it appears on the card");
+   } else {
+      cardName.setCustomValidity("");
+   }
+}
 
 
 
