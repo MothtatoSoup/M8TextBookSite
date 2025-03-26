@@ -4,13 +4,24 @@
       Chapter case
 
       Order Form Code
-      Author: 
+      Author: maddy
       Date:   
 
       Filename: js06b.js
  */
 
-// check if the owner's name is entered on the card
+
+let subButton = document.getElementById("subButton");
+
+// Validate the payment when the submit button is clicked
+subButton.addEventListener("click", validateName);
+subButton.addEventListener("click", validateCard);
+subButton.addEventListener("click", validateNumber);
+subButton.addEventListener("click", validateMonth);
+subButton.addEventListener("click", validateYear);
+subButton.addEventListener("click", validateCVC);
+
+      // check if the owner's name is entered on the card
 function validateName(){
    let cardName = document.getElementById("cardName");
    if(cardName.validity.valueMissing){
@@ -20,11 +31,66 @@ function validateName(){
    }
 }
 
+// Check if a credit card has been selected
+function validateCard(){
+   let card = document.forms.payment.elements.credit[0];
+   if(card.validity.valueMissing){
+      card.setCustomValidity("Select your credit card");
+   } else {
+      card.setCustomValidity("");
+   }
+}
 
+//Check if the card num is valid
+function validateNumber(){
+   let cNum = document.getElementById("cardNumber");
+   if (cNum.validity.valueMissing){
+      cNum.setCustomValidity("Enter your card Number")
+   } else if (cNum.validity.patternMismatch){
+      cNum.setCustomValidity("Enter a valid card number")
+   } else if (luhn(cNum.value) === false){
+      cNum.setCutsomValidity("Enter a ligitamite card number")
+   }else {
+      cNum.setCustomValidity("")
+   }
+}
 
+// Check that a month is selected fror expiration date
+function validateMonth(){
+   let month = document.getElementById("expMonth");
+   if (month.selectedIndex === 0){
+      month.setCustomValidity("Select the expiration month")
+   } else {
+      month.setCustomValidity("")
+   }
+}
 
+// Check a year is selected
+function validateYear(){
+   let year = document.getElementById("expYear")
+   if (year.selectedIndex === 0){
+      year.setCustomValidity("Select the expiration year")
+   } else {
+      year.setCustomValidity("")
+   }
+}
 
+function validateCVC(){
+   // Determine which card was selected 
+   let card = document.querySelector('input[name="credit"]:checked').value
+   let cvc = document.getElementById("cvc")
 
+   // validate the cvc val
+   if (cvc.validity.valueMissing){
+      cvc.setCustomValidity("Enter your cvc number")
+   } else if ((card == "amex") && !(/^\d{4}$/.test(cvc.value))){
+      cvc.setCustomValidity("Enter a 4-digit number")
+   } else if ((card !== "amex") && !(/^\d{3}$/.test(cvc.value))){
+      cvc.setCutsomValidity("Enter a 3-digit  number")
+   } else {
+      cvc.setCutsomValidity("")
+   }
+}
 
 
 
